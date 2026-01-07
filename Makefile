@@ -10,6 +10,7 @@ LATEST_VERSION=17-3.5
 # variables were specified, process everything (the default).
 do_default=true
 do_alpine=true
+do_anolis=true
 
 # The following logic evaluates VERSION and VARIANT variables that may have
 # been previously specified, and modifies the "do" flags depending on the values.
@@ -19,15 +20,22 @@ ifdef VERSION
     ifdef VARIANT       # If a variant is specified, unset all do flags and allow subsequent logic to set them again where appropriate
         do_default=false
         do_alpine=false
+        do_anolis=false
         ifeq ($(VARIANT),default)
             do_default=true
         endif
         ifeq ($(VARIANT),alpine)
             do_alpine=true
         endif
+        ifeq ($(VARIANT),anolis)
+            do_anolis=true
+        endif
     endif
     ifeq ("$(wildcard $(VERSION)/alpine)","") # If no alpine subdirectory exists, don't process the alpine version
         do_alpine=false
+    endif
+    ifeq ("$(wildcard $(VERSION)/anolis)","") # If no anolis subdirectory exists, don't process the anolis version
+        do_anolis=false
     endif
 else # If no version was specified, VERSIONS should contain all versions
     VERSIONS = $(foreach df,$(wildcard */Dockerfile),$(df:%/Dockerfile=%))
@@ -85,6 +93,12 @@ ifneq ("$(wildcard $1/alpine)","")
 	$(DOCKER) images          $(REPO_NAME)/$(IMAGE_NAME):$(shell echo $1)-alpine
 endif
 endif
+ifeq ($(do_anolis),true)
+ifneq ("$(wildcard $1/anolis)","")
+	$(DOCKER) build --pull -t $(REPO_NAME)/$(IMAGE_NAME):$(shell echo $1)-anolis $1/anolis
+	$(DOCKER) images          $(REPO_NAME)/$(IMAGE_NAME):$(shell echo $1)-anolis
+endif
+endif
 endef
 $(foreach version,$(VERSIONS),$(eval $(call build-version,$(version))))
 
@@ -106,6 +120,11 @@ endif
 ifeq ($(do_alpine),true)
 ifneq ("$(wildcard $1/alpine)","")
 	$(OFFIMG_LOCAL_CLONE)/test/run.sh -c $(OFFIMG_LOCAL_CLONE)/test/config.sh -c test/postgis-config.sh $(REPO_NAME)/$(IMAGE_NAME):$(version)-alpine
+endif
+endif
+ifeq ($(do_anolis),true)
+ifneq ("$(wildcard $1/anolis)","")
+	$(OFFIMG_LOCAL_CLONE)/test/run.sh -c $(OFFIMG_LOCAL_CLONE)/test/config.sh -c test/postgis-config.sh $(REPO_NAME)/$(IMAGE_NAME):$(version)-anolis
 endif
 endif
 endef
@@ -130,6 +149,11 @@ endif
 ifeq ($(do_alpine),true)
 ifneq ("$(wildcard $1/alpine)","")
 	$(DOCKER) image push $(REPO_NAME)/$(IMAGE_NAME):$(version)-alpine
+endif
+endif
+ifeq ($(do_anolis),true)
+ifneq ("$(wildcard $1/anolis)","")
+	$(DOCKER) image push $(REPO_NAME)/$(IMAGE_NAME):$(version)-anolis
 endif
 endif
 endef
