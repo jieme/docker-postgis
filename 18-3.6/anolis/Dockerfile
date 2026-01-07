@@ -18,6 +18,7 @@ RUN set -ex \
 # Install PostgreSQL and development packages
 ENV PG_MAJOR=18
 RUN set -ex \
+    && yum module disable postgresql -y \
     && yum install -y --enablerepo=pgdg-common \
         postgresql${PG_MAJOR} \
         postgresql${PG_MAJOR}-server \
