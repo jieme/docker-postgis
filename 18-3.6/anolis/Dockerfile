@@ -61,7 +61,7 @@ RUN set -ex \
         libcurl-devel \
         sqlite-devel \
         pcre-devel \
-        cunit-devel \
+        CUnit-devel \
     && yum clean all
 
 # Install runtime dependencies
