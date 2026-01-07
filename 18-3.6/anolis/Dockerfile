@@ -30,6 +30,8 @@ RUN set -ex \
 
 # Install build dependencies for PostGIS
 RUN set -ex \
+    && rm -f /var/lib/rpm/__db* \
+    && yum clean all \
     && yum groupinstall -y "Development Tools" \
     && yum install -y --setopt=strict=0 \
         autoconf \
