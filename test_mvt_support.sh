@@ -16,7 +16,7 @@ fi
 # Build the image
 echo ""
 echo "Building PostgreSQL 18 + PostGIS 3.6 Anolis image..."
-docker build -t postgis/postgis:18-3.6-anolis 18-3.6/anolis/
+docker build -t jieme/postgis:18-3.6-anolis 18-3.6/anolis/
 
 # Start the container
 echo ""
@@ -25,7 +25,7 @@ docker run -d \
     --name postgres-postgis-test \
     -e POSTGRES_PASSWORD=testpassword \
     -p 5433:5432 \
-    postgis/postgis:18-3.6-anolis
+    jieme/postgis:18-3.6-anolis
 
 # Wait for PostgreSQL to be ready
 echo ""

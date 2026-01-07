@@ -18,20 +18,20 @@ fi
 # Build the image
 echo ""
 echo "Building Docker image..."
-docker build -t postgis/postgis:18-3.6-anolis 18-3.6/anolis/
+docker build -t jieme/postgis:18-3.6-anolis 18-3.6/anolis/
 
 echo ""
 echo "=========================================="
 echo "Build completed successfully!"
 echo "=========================================="
 echo ""
-echo "Image: postgis/postgis:18-3.6-anolis"
+echo "Image: jieme/postgis:18-3.6-anolis"
 echo ""
 echo "To run the container:"
 echo "  docker run -d --name postgres-postgis \\"
 echo "    -e POSTGRES_PASSWORD=mysecretpassword \\"
 echo "    -p 5432:5432 \\"
-echo "    postgis/postgis:18-3.6-anolis"
+echo "    jieme/postgis:18-3.6-anolis"
 echo ""
 echo "To test MVT support:"
 echo "  ./test_mvt_support.sh"

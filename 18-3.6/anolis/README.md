@@ -1,13 +1,13 @@
 # PostgreSQL 18 + PostGIS 3.6 on Anolis OS
 
-This Docker image provides PostgreSQL 18 with PostGIS 3.6 extension on Anolis OS 8.9, with MVT (Mapbox Vector Tiles) support enabled.
+This Docker image provides PostgreSQL 18 with PostGIS 3.6 extension on Anolis OS 8.2, with MVT (Mapbox Vector Tiles) support enabled.
 
 ## Features
 
 - **PostgreSQL 18**: Latest version of PostgreSQL
 - **PostGIS 3.6**: Latest version of PostGIS spatial database extension
 - **MVT Support**: Mapbox Vector Tiles support enabled via `--with-protobuf` configure option
-- **Anolis OS 8.9**: Chinese open-source Linux distribution compatible with CentOS/RHEL
+- **Anolis OS 8.2**: Chinese open-source Linux distribution compatible with CentOS/RHEL
 - **LTO Enabled**: Link Time Optimization for better performance
 
 ## Build
@@ -31,7 +31,7 @@ docker run -d \
   --name postgres-postgis \
   -e POSTGRES_PASSWORD=mysecretpassword \
   -p 5432:5432 \
-  postgis/postgis:18-3.6-anolis
+  jieme/postgis:18-3.6-anolis
 ```
 
 ### Verify MVT support
@@ -103,7 +103,7 @@ The image includes the following build-time dependencies:
 
 ## Notes
 
-- This image uses Anolis OS 8.9 as the base
+- This image uses Anolis OS 8.2 as the base
 - MVT support is enabled by default
 - The image size will be larger due to the inclusion of build tools
 - For production use, consider using a multi-stage build to reduce image size

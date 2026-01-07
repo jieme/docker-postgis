@@ -2,7 +2,7 @@
 # NOTE: THIS DOCKERFILE IS GENERATED VIA "make update"! PLEASE DO NOT EDIT IT DIRECTLY.
 #
 
-ARG BASE_IMAGE=anolis:8.9
+ARG BASE_IMAGE=openanolis/anolisos:8
 FROM ${BASE_IMAGE}
 
 LABEL maintainer="PostGIS Project - https://postgis.net" \

@@ -60,7 +60,7 @@ endif
 
 # The repository and image names default to the official but can be overriden
 # via environment variables.
-REPO_NAME  ?= postgis
+REPO_NAME  ?= jieme
 IMAGE_NAME ?= postgis
 
 DOCKER=docker
